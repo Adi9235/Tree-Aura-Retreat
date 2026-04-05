@@ -13,13 +13,15 @@ const Hero: React.FC = () => {
     images.forEach((src, i) => {
       const img = new Image();
       img.src = src;
-      img.onload = () => {
+      const handleLoad = () => {
         setImagesLoaded(prev => {
           const next = [...prev];
           next[i] = true;
           return next;
         });
       };
+      img.onload = handleLoad;
+      img.onerror = handleLoad; // Still mark as "loaded" to allow the image tag to render and handle failure gracefully (or show placeholder)
     });
 
     const interval = setInterval(() => {
