@@ -51,7 +51,7 @@ const Index: React.FC = () => {
             <VerticalCard
               title="Wellness & Spa"
               description="Rejuvenate your mind, body, and soul with holistic treatments."
-              image="/images/spa-hero.png"
+              image="/images/spa-hero.webp"
               link="/wellness"
               label="Explore Wellness"
             />

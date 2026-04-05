@@ -6,6 +6,11 @@ import { Suspense, lazy } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import LoadingScreen from "./components/LoadingScreen";
+import { preloadImages } from "./hooks/useImagePreload";
+import { PAGE_IMAGES } from "./lib/imageManifest";
+
+// Kick off preloading of landing page images immediately on app init
+preloadImages(PAGE_IMAGES['/'] ?? []);
 
 const Index = lazy(() => import("./pages/Index"));
 const StayPage = lazy(() => import("./pages/StayPage"));

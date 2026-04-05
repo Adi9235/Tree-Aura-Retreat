@@ -1,44 +1,38 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
+import { useLazyImage } from '../hooks/useImagePreload';
 
 interface LazyImageProps {
   src: string;
   alt: string;
   className?: string;
   onClick?: () => void;
+  eager?: boolean; // set true for above-the-fold images
 }
 
-const LazyImage: React.FC<LazyImageProps> = ({ src, alt, className = '', onClick }) => {
-  const [loaded, setLoaded] = useState(false);
-  const [inView, setInView] = useState(false);
-  const imgRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '200px' }
-    );
-    if (imgRef.current) observer.observe(imgRef.current);
-    return () => observer.disconnect();
-  }, []);
+const LazyImage: React.FC<LazyImageProps> = ({ src, alt, className = '', onClick, eager = false }) => {
+  const { ready, containerRef } = useLazyImage(src, eager ? '0px' : '500px');
 
   return (
-    <div ref={imgRef} className={`relative overflow-hidden bg-muted/30 ${className}`} onClick={onClick}>
-      {!loaded && (
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" />
+    <div
+      ref={containerRef}
+      className={`relative overflow-hidden bg-stone-900/20 ${className}`}
+      onClick={onClick}
+      style={{ contentVisibility: 'auto' }}
+    >
+      {/* Shimmer placeholder */}
+      {!ready && (
+        <div className="absolute inset-0 bg-gradient-to-r from-stone-800/20 via-stone-600/10 to-stone-800/20 animate-shimmer" />
       )}
-      {inView && (
+
+      {/* Image — always in DOM once inView, opacity transitions in */}
+      {(ready || eager) && (
         <img
           src={src}
           alt={alt}
-          loading="lazy"
-          onLoad={() => setLoaded(true)}
-          className={`w-full h-full object-cover transition-all duration-700 ${
-            loaded ? 'opacity-100 scale-100 blur-0' : 'opacity-0 scale-110 blur-sm'
+          loading={eager ? 'eager' : 'lazy'}
+          decoding="async"
+          className={`w-full h-full object-cover transition-all duration-700 ease-out ${
+            ready ? 'opacity-100 scale-100 blur-0' : 'opacity-0 scale-105 blur-sm'
           }`}
         />
       )}

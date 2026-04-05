@@ -6,7 +6,7 @@ const WellnessPage: React.FC = () => {
     <div className="pt-16 lg:pt-20">
       {/* Hero */}
       <section className="relative h-[50vh] md:h-[60vh] overflow-hidden">
-        <LazyImage src="/images/spa-hero.png" alt="Wellness & Spa" className="absolute inset-0 w-full h-full" />
+        <LazyImage src="/images/spa-hero.webp" alt="Wellness & Spa" className="absolute inset-0 w-full h-full" eager />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20" />
         <div className="absolute inset-0 flex items-center justify-center text-center px-4">
           <div className="animate-fade-in-up">
@@ -37,7 +37,7 @@ const WellnessPage: React.FC = () => {
               </div>
             </div>
             <div className="rounded-lg overflow-hidden shadow-xl">
-              <LazyImage src="/images/spa-hero.png" alt="Spa Experience" className="w-full h-[350px]" />
+              <LazyImage src="/images/spa-hero.webp" alt="Spa Experience" className="w-full h-[350px]" />
             </div>
           </div>
         </div>

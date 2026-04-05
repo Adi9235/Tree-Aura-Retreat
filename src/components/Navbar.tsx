@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import { preloadImages } from '../hooks/useImagePreload';
+import { PAGE_IMAGES } from '../lib/imageManifest';
 
 const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
   const isHome = location.pathname === '/';
+
+  // Preload images for the CURRENT page immediately on route change
+  useEffect(() => {
+    const images = PAGE_IMAGES[location.pathname];
+    if (images) preloadImages(images);
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -39,6 +47,13 @@ const Navbar: React.FC = () => {
     setMobileOpen(false);
   };
 
+  // On hover, preload next page's images ahead of time
+  const handleNavHover = (href: string) => {
+    const route = href.startsWith('/#') ? '/' : href;
+    const images = PAGE_IMAGES[route];
+    if (images) preloadImages(images);
+  };
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
@@ -50,7 +65,7 @@ const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
+          <Link to="/" className="flex items-center gap-3 group" onMouseEnter={() => handleNavHover('/')}>
             <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-full overflow-hidden border-2 border-primary shadow-lg group-hover:shadow-primary/40 transition-shadow duration-300">
               <img
                 src="/logo.jpg"
@@ -70,6 +85,7 @@ const Navbar: React.FC = () => {
                 key={link.name}
                 to={link.href.startsWith('/#') && isHome ? '/' : link.href}
                 onClick={() => handleNavClick(link.href)}
+                onMouseEnter={() => handleNavHover(link.href)}
                 className={`px-4 py-2 text-sm font-medium tracking-wider uppercase transition-colors duration-300 rounded-sm
                   ${location.pathname === link.href
                     ? 'text-primary'
@@ -82,6 +98,7 @@ const Navbar: React.FC = () => {
             ))}
             <Link
               to="/stay"
+              onMouseEnter={() => handleNavHover('/stay')}
               className="ml-4 px-6 py-2 bg-primary text-primary-foreground text-sm font-bold tracking-wider uppercase rounded-sm hover:bg-primary/90 transition-colors duration-300"
             >
               Book Now
@@ -111,6 +128,7 @@ const Navbar: React.FC = () => {
               key={link.name}
               to={link.href.startsWith('/#') && isHome ? '/' : link.href}
               onClick={() => handleNavClick(link.href)}
+              onMouseEnter={() => handleNavHover(link.href)}
               className="block px-4 py-3 text-sm font-medium tracking-wider uppercase text-secondary-foreground/80 hover:text-primary transition-colors"
             >
               {link.name}
