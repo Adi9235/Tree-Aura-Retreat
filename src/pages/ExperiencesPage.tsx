@@ -9,7 +9,11 @@ const experiences = [
   { id: 'beatles-cafe', title: 'The Beatles Cafe', distance: '10 Min Walk', type: 'Ganga View', description: 'World-class organic vegan food with panoramic views of the Ganges river and the hills.', image: '/images/beatles-cafe.webp' },
   { id: 'neer-garh', title: 'Neer Garh Waterfall', distance: '20 Min Drive', type: 'Nature', description: 'A moderate trek leads to stunning multi-tiered turquoise pools and cold mountain waterfalls.', image: '/images/Neergarh-waterfall.jpg' },
   { id: 'ganga-aarti', title: 'Parmarth Niketan Aarti', distance: '15 Min Auto', type: 'Spiritual', description: 'Experience the evening ritual with traditional mantras and fire lamps on the holy riverbank.', image: '/images/aarti.webp' },
+  { id: 'river-rafting', title: 'River Rafting', distance: '10 Min Drive', type: 'Adventure', description: 'Experience the thrill of the Ganges whitewater as you navigate famous rapids like Roller Coaster and Golf Course.', image: '/images/rafting.jpg' },
+  { id: 'bungee-jumping', title: 'Bungee Jumping', distance: '30 Min Drive', type: 'Adventure', description: "Leap from India's highest fixed platform and feel the ultimate adrenaline rush in the heart of the Himalayas.", image: '/images/bungee.jpg' },
+  { id: 'paragliding', title: 'Paragliding', distance: '45 Min Drive', type: 'Adventure', description: 'Soar above the Himalayan foothills and enjoy panoramic views of the Ganges valley from a birds eye perspective.', image: '/images/Paragliding.jpg' },
 ];
+
 
 const itinerary = {
   day1: [
@@ -20,12 +24,13 @@ const itinerary = {
     { time: '06:30 PM', activity: 'Parmarth Niketan Aarti', details: 'Head down to Swarg Ashram across the bridge for the legendary evening ritual.' },
   ],
   day2: [
-    { time: '08:30 AM', activity: 'Farm-to-Table Breakfast', details: 'Enjoy a fresh, organic breakfast prepared with local ingredients at our Auré Cafe.' },
-    { time: '10:00 AM', activity: 'Neer Garh Hike', details: 'Trek to the turquoise pools and enjoy a refreshing dip in mountain waterfalls.' },
-    { time: '02:00 PM', activity: 'Brunch at BeMonk Cafe', details: "Relax in Tapovan's hidden gem known for its artisanal local vibe." },
-    { time: '04:00 PM', activity: 'Beatles Ashram Exploration', details: 'Walk through history and admire the graffiti-filled meditation cells.' },
-    { time: '07:30 PM', activity: 'Gala Dinner at Auré Cafe', details: "End your 48 hours with a candlelight dinner featuring our chef's special Himalayan delicacies." },
+    { time: '08:30 AM', activity: 'Mountain View Breakfast', details: 'Fuel up with a hearty organic breakfast at Auré Cafe before your adventure.' },
+    { time: '10:00 AM', activity: 'Bungee Jumping at Mohan Chatti', details: "India's highest bungee jump for an unforgettable adrenaline kick." },
+    { time: '12:30 PM', activity: 'River Rafting Expedition', details: 'Navigate the chilly Himalayan waters and famous rapids of the Ganges.' },
+    { time: '03:30 PM', activity: 'Soaring Paragliding', details: 'Fly over the lush green valleys and watch the sunset from the sky.' },
+    { time: '07:30 PM', activity: 'Victory Dinner at Auré Cafe', details: "Celebrate your day of adventure with a bonfire and a special multi-cuisine feast." },
   ],
+
 };
 
 const ExperiencesPage: React.FC = () => {

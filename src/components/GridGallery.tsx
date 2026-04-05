@@ -47,14 +47,20 @@ const GridGallery: React.FC<GridGalleryProps> = ({ images }) => {
             className="w-full h-[120px] md:h-[195px] cursor-pointer"
             onClick={() => setSelectedImage(2)}
           />
+        <div className="relative cursor-pointer rounded-br-lg overflow-hidden group" onClick={() => setSelectedImage(3)}>
           <LazyImage
             src={images[3]}
             alt="Room View 4"
-            className="w-full h-[120px] md:h-[195px] cursor-pointer rounded-br-lg"
-            onClick={() => setSelectedImage(3)}
+            className="w-full h-[120px] md:h-[195px] group-hover:scale-105 transition-transform duration-500"
           />
+          {images.length > 4 && (
+            <div className="absolute inset-0 bg-black/40 flex items-center justify-center pointer-events-none group-hover:bg-black/20 transition-colors">
+              <span className="text-cream font-bold text-sm md:text-base">+ {images.length - 4} View All</span>
+            </div>
+          )}
         </div>
       </div>
+    </div>
 
       {/* Lightbox */}
       {selectedImage !== null && (

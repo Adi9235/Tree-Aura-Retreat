@@ -58,7 +58,7 @@ const Index: React.FC = () => {
             <VerticalCard
               title="Our Rooms"
               description="Luxury accommodations with breathtaking Himalayan views."
-              image="/images/Deluxe-Room-1.jpg"
+              image="/images/Deluxe-new-1.jpeg"
               link="/stay"
               label="View Rooms"
             />

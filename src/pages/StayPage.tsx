@@ -9,10 +9,13 @@ const roomsData = [
     description: 'Experience unparalleled luxury and comfort in our Deluxe Room. Designed as a spacious sanctuary, it features elegant decor and a private balcony with breathtaking views. Perfect for a peaceful retreat away from the daily bustle, ensuring a truly premium stay.',
     price: '5999',
     images: [
-      '/images/Deluxe-Room-1.jpg',
-      '/images/Deluxe-Room-2.jpg',
-      '/images/Deluxe-Bathroom.jpg',
-      '/images/Deluxe-Room-balcony.jpg',
+      '/images/Deluxe-new-1.jpeg',
+      '/images/Deluxe-new-2.jpeg',
+      '/images/Deluxe-new-3.jpeg',
+      '/images/Deluxe-new-4.jpeg',
+      '/images/Deluxe-new-5.jpeg',
+      '/images/Deluxe-new-6.jpeg',
+      '/images/Deluxe-new-7.jpeg',
     ],
     amenities: [
       'Private Balcony',
@@ -35,6 +38,8 @@ const roomsData = [
       '/images/Cottage-room-2.jpg',
       '/images/Cottage-room-3.jpg',
       '/images/Cottage-Outside.jpg',
+      '/images/cottage-new-1.jpeg',
+      '/images/cottage-new-2.jpeg',
     ],
     amenities: [
       'Free Wifi',
