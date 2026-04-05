@@ -27,9 +27,9 @@ const LazyImage: React.FC<LazyImageProps> = ({ src, alt, className = '', onClick
   }, []);
 
   return (
-    <div ref={imgRef} className={`relative overflow-hidden ${className}`} onClick={onClick}>
+    <div ref={imgRef} className={`relative overflow-hidden bg-muted/30 ${className}`} onClick={onClick}>
       {!loaded && (
-        <div className="absolute inset-0 animate-shimmer rounded-lg" />
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" />
       )}
       {inView && (
         <img
@@ -37,7 +37,9 @@ const LazyImage: React.FC<LazyImageProps> = ({ src, alt, className = '', onClick
           alt={alt}
           loading="lazy"
           onLoad={() => setLoaded(true)}
-          className={`w-full h-full object-cover transition-opacity duration-500 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+          className={`w-full h-full object-cover transition-all duration-700 ${
+            loaded ? 'opacity-100 scale-100 blur-0' : 'opacity-0 scale-110 blur-sm'
+          }`}
         />
       )}
     </div>

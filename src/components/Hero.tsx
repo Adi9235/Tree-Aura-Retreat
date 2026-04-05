@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
 
-const images = ["/hero-bg.png", "/hero-1.png", "/hero-2.png"];
+const images = ["/hero-bg.webp", "/hero-1.webp", "/hero-2.webp"];
 
 const Hero: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);

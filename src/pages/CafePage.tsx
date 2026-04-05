@@ -4,9 +4,9 @@ import ImageCarousel from '../components/ImageCarousel';
 
 const CafePage: React.FC = () => {
   const menuItems = [
-    { name: 'Mysore Masala Dosa', desc: 'Crispy South Indian crepe served with coconut chutney and sambar.', price: '₹190', image: '/images/dosa.png' },
-    { name: 'Kadhai Paneer', desc: 'Rich, creamy cottage cheese curry with bell peppers and fresh coriander.', price: '₹290', image: '/images/paneer.png' },
-    { name: 'Italian Pizza', desc: 'Authentic wood-fired pizza with fresh mozzarella, basil, and a blistered crust.', price: '₹350', image: '/images/pizza.png' },
+    { name: 'Mysore Masala Dosa', desc: 'Crispy South Indian crepe served with coconut chutney and sambar.', price: '₹190', image: '/images/dosa.webp' },
+    { name: 'Kadhai Paneer', desc: 'Rich, creamy cottage cheese curry with bell peppers and fresh coriander.', price: '₹290', image: '/images/paneer.webp' },
+    { name: 'Italian Pizza', desc: 'Authentic wood-fired pizza with fresh mozzarella, basil, and a blistered crust.', price: '₹350', image: '/images/pizza.webp' },
   ];
 
   return (
