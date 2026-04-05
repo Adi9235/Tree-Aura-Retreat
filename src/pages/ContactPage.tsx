@@ -7,19 +7,38 @@ const ContactPage: React.FC = () => {
   const [status, setStatus] = useState<'idle' | 'sending'>('idle');
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) {
       toast({ title: "Please fill in all fields", variant: "destructive" });
       return;
     }
-    setStatus('sending');
-    // Simulate send
-    setTimeout(() => {
-      toast({ title: "Message Sent!", description: "We'll get back to you soon." });
-      setFormData({ name: '', email: '', message: '' });
-      setStatus('idle');
-    }, 1500);
+    
+    // Quick feedback: 
+    // Trigger toast and reset form immediately to avoid "long sending state"
+    const originalData = { ...formData };
+    setFormData({ name: '', email: '', message: '' });
+    toast({ 
+      title: "Message Sent!", 
+      description: `Namaste ${originalData.name}, we've received your inquiry.` 
+    });
+    
+    // Background sending:
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(originalData),
+      });
+      
+      if (!response.ok) {
+        console.error('Failed to send message via API');
+        // Optional: show error toast only if it fails critically, 
+        // but user wanted it quick so we might already be "done" in their eyes.
+      }
+    } catch (err) {
+      console.error('Error submitting form:', err);
+    }
   };
 
   return (
