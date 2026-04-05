@@ -1,8 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import LazyImage from '../components/LazyImage';
 import ImageCarousel from '../components/ImageCarousel';
+import { preloadImages } from '../hooks/useImagePreload';
+
+const CAFE_IMAGES = [
+  '/images/Cafe-img-1.jpg',
+  '/images/Cafe-img-2.jpg',
+  '/images/Cafe-img-3.jpg',
+  '/cafe-logo.jpg',
+  '/images/dosa.webp',
+  '/images/paneer.webp',
+  '/images/pizza.webp',
+  '/menu-preview.jpg',
+];
 
 const CafePage: React.FC = () => {
+  // Preload all cafe images immediately on mount — no waiting for intersection
+  useEffect(() => { preloadImages(CAFE_IMAGES); }, []);
+
   const menuItems = [
     { name: 'Mysore Masala Dosa', desc: 'Crispy South Indian crepe served with coconut chutney and sambar.', price: '₹190', image: '/images/dosa.webp' },
     { name: 'Kadhai Paneer', desc: 'Rich, creamy cottage cheese curry with bell peppers and fresh coriander.', price: '₹290', image: '/images/paneer.webp' },

@@ -16,7 +16,7 @@ export function preloadImage(src: string): Promise<void> {
       resolve();
     };
     img.onerror = () => {
-      preloadCache.set(src, true); // mark as done even on error
+      preloadCache.set(src, true); // mark done even on error so UI doesn't hang
       pendingLoads.delete(src);
       resolve();
     };
@@ -28,24 +28,40 @@ export function preloadImage(src: string): Promise<void> {
 }
 
 /**
- * Preloads a list of images in parallel — useful for preloading a whole page's images at once
+ * Preloads a list of images in parallel — call this for an entire page's assets at once
  */
 export function preloadImages(srcs: string[]): void {
   srcs.forEach(src => preloadImage(src));
 }
 
 /**
- * Hook: returns true when the image at `src` is loaded (from cache or fresh).
- * Uses IntersectionObserver to defer loading until near viewport.
- * Once loaded, the result is cached globally — the image won't reload on re-render or re-mount.
+ * Hook: returns true when the image is ready.
+ *
+ * Priority order:
+ * 1. Already in cache → ready immediately (zero cost)
+ * 2. Currently being preloaded by the manifest → attaches to the existing Promise
+ * 3. Neither → falls back to IntersectionObserver with a wide rootMargin
+ *
+ * This eliminates the race condition where a manifest-preloaded image
+ * hasn't finished when the component mounts, causing a double-load.
  */
-export function useLazyImage(src: string, rootMargin = '400px') {
+export function useLazyImage(src: string, rootMargin = '500px') {
   const [ready, setReady] = useState(() => preloadCache.get(src) ?? false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (ready) return; // already cached
+    if (ready) return;
 
+    // Case 2: Image is already being preloaded — just subscribe to the existing promise
+    if (pendingLoads.has(src)) {
+      let cancelled = false;
+      pendingLoads.get(src)!.then(() => {
+        if (!cancelled) setReady(true);
+      });
+      return () => { cancelled = true; };
+    }
+
+    // Case 3: Not in cache, not preloading — use IntersectionObserver
     const triggerLoad = () => {
       preloadImage(src).then(() => setReady(true));
     };
